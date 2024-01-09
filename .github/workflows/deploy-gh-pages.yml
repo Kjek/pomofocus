@@ -1,0 +1,13 @@
+name: GitHub Pages Deploy
+on: [push]
+jobs:
+  Deploy-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
+      - name: Deploy using gh-pages
+        run: |
+          yarn deploy
+      - run: echo "This job's status is ${{ job.status }}."
