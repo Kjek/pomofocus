@@ -22,7 +22,11 @@
 
     "baseUrl": "./src",
     "paths": {
-      "@hook/*": ["hooks/*"]
+      "@atom/*": ["components/atoms/*"],
+      "@molecule/*": ["components/molecules/*"],
+      "@organism/*": ["components/organisms/*"],
+      "@hook/*": ["hooks/*"],
+      "@util/*": ["utils/*"]
     }
   },
   "include": ["src"],
