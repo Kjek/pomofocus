@@ -3,6 +3,10 @@ on: [push]
 jobs:
   Deploy-GitHub-Actions:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
@@ -17,9 +21,12 @@ jobs:
       - name: Install dependencies
         run: |
           yarn
-      - name: Deploy using gh-pages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build page
         run: |
-          yarn deploy
+          yarn build
+      - name: Deploy using gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
       - run: echo "This job's status is ${{ job.status }}."
