@@ -7,6 +7,13 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
+      - name: Configure Git
+        env:
+          user_email: ${{ secrets.USER_EMAIL }}
+          user_name: ${{ secrets.USER_NAME }}
+        run: |
+          git config --global user.email "%user_email%"
+          git config --global user.name "%user_name%"
       - name: Install dependencies
         run: |
           yarn
