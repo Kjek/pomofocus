@@ -18,6 +18,8 @@ jobs:
         run: |
           yarn
       - name: Deploy using gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           yarn deploy
       - run: echo "This job's status is ${{ job.status }}."
