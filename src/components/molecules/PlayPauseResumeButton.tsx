@@ -14,11 +14,11 @@ const PlayPauseResumeButton = (props: PlayPauseResumeButtonProps) => {
   const icon = () => {
     switch (status) {
       case TimerStatus.PLAYING:
-        return <PauseIcon className='h-6 w-6' />;
+        return <PauseIcon className='h-4 w-4 sm:h-6 sm:w-6' />;
       case TimerStatus.RESUME:
-        return <ResumeIcon className='h-6 w-6' />;
+        return <ResumeIcon className='h-4 w-4 sm:h-6 sm:w-6' />;
       default:
-        return <PlayIcon className='h-6 w-6' />;
+        return <PlayIcon className='h-4 w-4 sm:h-6 sm:w-6' />;
     }
   };
 

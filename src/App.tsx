@@ -3,7 +3,7 @@ import TimerSection from '@organism/TimerSection';
 function App() {
   return (
     <>
-      <div className='w-screen p-6'>
+      <div className={'w-screen pt-4 sm:p-6'}>
         <TimerSection />
       </div>
     </>

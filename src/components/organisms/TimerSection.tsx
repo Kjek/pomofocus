@@ -45,7 +45,7 @@ const TimerSection = () => {
   }, [state]);
 
   return (
-    <div className='dark:bg-gray-custom m-auto flex w-fit flex-col gap-2 rounded-lg border border-gray-300 bg-white pb-6 dark:border-gray-600'>
+    <div className='dark:bg-gray-custom m-auto flex w-fit flex-col gap-2 rounded-lg border border-gray-300 bg-white pb-4 sm:pb-6 dark:border-gray-600'>
       <TimerSelectionSection state={state} dispatch={dispatch} />
       <Text variant='h1' className='text-center'>
         {formatedTime}

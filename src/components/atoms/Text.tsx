@@ -14,7 +14,7 @@ const Text = (props: TextProps) => {
   const tagClasses = useCallback(() => {
     switch (variant) {
       case 'h1':
-        return 'text-8xl font-bold text-gray-800 dark:text-gray-300';
+        return 'text-5xl font-bold text-gray-800 dark:text-gray-300 sm:text-8xl';
       case 'h2':
         return 'pb-4 text-center text-3xl font-bold text-gray-800 dark:text-gray-300 sm:w-1/3 sm:grow sm:pb-0';
       case 'h3':
@@ -27,7 +27,7 @@ const Text = (props: TextProps) => {
       case 'p':
       case 'span':
       default:
-        return 'text-lg text-gray-500 dark:text-gray-300';
+        return 'text-base text-gray-500 dark:text-gray-300';
     }
   }, [variant])();
 

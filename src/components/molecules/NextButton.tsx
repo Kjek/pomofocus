@@ -6,7 +6,7 @@ const NextButton = (props: ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
     <>
       <Button {...props}>
-        <TrackNextIcon className='h-6 w-6' />
+        <TrackNextIcon className='h-4 w-4 sm:h-6 sm:w-6' />
       </Button>
     </>
   );
