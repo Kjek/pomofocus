@@ -3,9 +3,9 @@ import usePomodoroInterval from '@hook/usePomodoroInterval';
 import useTimer, { TimerStatus } from '@hook/useTimer';
 import NextButton from '@molecule/NextButton';
 import PlayPauseResumeButton from '@molecule/PlayPauseResumeButton';
+import TimerSelectionSection from '@molecule/TimerSelectionSection';
 import minutesToMiliseconds from '@util/minutesToMiliseconds';
 import { useCallback, useEffect } from 'react';
-import TimerSelectionSection from '@molecule/TimerSelectionSection';
 
 const TimerSection = () => {
   const { toggleTimer, formatedTime, status, setTimer, time } = useTimer();
@@ -30,7 +30,6 @@ const TimerSection = () => {
   }, [status, time]);
 
   useEffect(() => {
-    console.log(state);
     switch (state.intervalType) {
       case 'short break':
         setTimer(minutesToMiliseconds(5));
@@ -46,7 +45,7 @@ const TimerSection = () => {
   }, [state]);
 
   return (
-    <div className='m-auto flex w-fit flex-col gap-2 rounded-lg border border-gray-300 pb-2 dark:border-gray-600'>
+    <div className='dark:bg-gray-custom m-auto flex w-fit flex-col gap-2 rounded-lg border border-gray-300 bg-white pb-6 dark:border-gray-600'>
       <TimerSelectionSection state={state} dispatch={dispatch} />
       <Text variant='h1' className='text-center'>
         {formatedTime}

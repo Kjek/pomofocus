@@ -6,4 +6,9 @@
   body {
     @apply bg-neutral-100 dark:bg-gray-900
   }
+
+  .bg-gray-custom {
+    --tw-bg-opacity: 1;
+    background-color: rgb(24 32.5 47 / var(--tw-bg-opacity));
+  }
 }

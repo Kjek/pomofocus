@@ -1,7 +1,7 @@
 import Button from '@atom/Button';
 import { TimerStatus } from '@hook/useTimer';
 import { PauseIcon, PlayIcon, ResumeIcon } from '@radix-ui/react-icons';
-import { ButtonHTMLAttributes } from 'react';
+import type { ButtonHTMLAttributes } from 'react';
 
 interface PlayPauseResumeButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -14,11 +14,11 @@ const PlayPauseResumeButton = (props: PlayPauseResumeButtonProps) => {
   const icon = () => {
     switch (status) {
       case TimerStatus.PLAYING:
-        return <PauseIcon />;
+        return <PauseIcon className='h-6 w-6' />;
       case TimerStatus.RESUME:
-        return <ResumeIcon />;
+        return <ResumeIcon className='h-6 w-6' />;
       default:
-        return <PlayIcon />;
+        return <PlayIcon className='h-6 w-6' />;
     }
   };
 

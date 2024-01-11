@@ -12,7 +12,7 @@ const SelectButton = (props: SelectButtonProps) => {
     <>
       <InputButton
         {...props}
-        className={`rounded-none border-0 border-l first:border-l-0 ${
+        className={`rounded-none border-0 border-l text-2xl first:border-l-0 ${
           selected ? 'border-b-0' : 'border-b'
         }`}
       />
