@@ -2,33 +2,47 @@ import useInterval from '@hook/useInterval';
 import useToggle from '@hook/useToggle';
 import { useCallback, useRef, useState } from 'react';
 
+export enum TimerStatus {
+  STOPPED,
+  PLAYING,
+  RESUME,
+}
+
 const useTimer = (
   countdownTime: number = 1500000
 ): {
   toggleTimer: () => void;
   formatedTime: string;
-  status: 0 | 1 | 2;
-  time: React.MutableRefObject<number>;
+  status: TimerStatus;
+  setTimer: (newTime: number) => void;
+  time: number;
 } => {
-  const [isRunning, toggleIsRunning] = useToggle(false);
-  const time = useRef<number>(countdownTime);
-  const [timer, setTimer] = useState<Date>(new Date(time.current));
+  const [isRunning, toggleRunning] = useToggle(false);
+  const [time, setTime] = useState<number>(countdownTime);
+  const originalTime = useRef<number>(time);
 
   const toggleTimer = useCallback(() => {
-    if (time.current > 0) {
-      toggleIsRunning();
+    if (time > 0) {
+      toggleRunning();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [time]);
+
+  const setTimer = useCallback((newTime: number) => {
+    setTime(newTime);
+    toggleRunning();
+    originalTime.current = newTime;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useInterval(
     () => {
-      time.current = time.current - 1000;
-      setTimer(new Date(time.current));
-      if (time.current <= 0) {
-        toggleIsRunning();
+      setTime(time - 1000);
+      if (time <= 1000) {
+        toggleRunning();
       }
     },
-    isRunning && time.current > 0 ? 1000 : null
+    isRunning && time > 0 ? 1000 : null
   );
 
   const options: Intl.DateTimeFormatOptions = {
@@ -38,8 +52,13 @@ const useTimer = (
 
   return {
     toggleTimer,
-    formatedTime: timer.toLocaleString('en-US', options),
-    status: isRunning ? 1 : time.current === countdownTime ? 0 : 2,
+    formatedTime: new Date(time).toLocaleString('en-US', options),
+    status: isRunning
+      ? TimerStatus.PLAYING
+      : time === originalTime.current || time === 0
+        ? TimerStatus.STOPPED
+        : TimerStatus.RESUME,
+    setTimer,
     time,
   };
 };

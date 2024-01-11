@@ -1,4 +1,4 @@
-import TimerSection from '@molecule/TimerSection';
+import TimerSection from '@organism/TimerSection';
 
 function App() {
   return (

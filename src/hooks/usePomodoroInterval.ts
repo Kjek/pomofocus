@@ -5,7 +5,10 @@ export interface PomodoroState {
   intervalCount: number;
 }
 
-export type Action<T> = { type: 'focus'; payload: T } | { type: 'break' };
+export type Action<T> =
+  | { type: 'focus'; payload: T }
+  | { type: 'short break' }
+  | { type: 'long break' };
 
 const initialState: PomodoroState = {
   intervalType: 'focus',
@@ -24,7 +27,8 @@ const usePomodoroInterval = () => {
           intervalType: action.type,
           intervalCount: action.payload,
         };
-      case 'break':
+      case 'short break':
+      case 'long break':
         return {
           ...state,
           intervalType: action.type,

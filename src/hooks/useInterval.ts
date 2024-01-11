@@ -4,6 +4,10 @@ const useInterval = (callback: () => void, delay: number | null) => {
   const callbackRef = useRef<() => void>(callback);
 
   useEffect(() => {
+    callbackRef.current = callback;
+  }, [callback]);
+
+  useEffect(() => {
     if (!delay) {
       return () => {};
     }
