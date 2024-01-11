@@ -28,12 +28,17 @@ const useTimer = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [time]);
 
-  const setTimer = useCallback((newTime: number) => {
-    setTime(newTime);
-    toggleRunning();
-    originalTime.current = newTime;
+  const setTimer = useCallback(
+    (newTime: number) => {
+      setTime(newTime);
+      originalTime.current = newTime;
+      if (isRunning) {
+        toggleRunning();
+      }
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    [isRunning]
+  );
 
   useInterval(
     () => {

@@ -30,6 +30,7 @@ const TimerSection = () => {
   }, [status, time]);
 
   useEffect(() => {
+    console.log(state);
     switch (state.intervalType) {
       case 'short break':
         setTimer(minutesToMiliseconds(5));
