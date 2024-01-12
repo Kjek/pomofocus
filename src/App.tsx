@@ -1,4 +1,4 @@
-import TimerSection from '@organism/TimerSection';
+import TimerSection from 'components/pages/TimerSection';
 
 function App() {
   return (

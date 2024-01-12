@@ -12,8 +12,8 @@ const SelectButton = (props: SelectButtonProps) => {
     <>
       <InputButton
         {...props}
-        className={`rounded-none border-0 border-l text-base first:border-l-0 sm:text-2xl ${
-          selected ? 'border-b-0' : 'border-b'
+        className={`rounded-none border-0 border-l text-base first:rounded-tl-lg first:border-l-0 last:rounded-tr-lg sm:text-2xl ${
+          selected ? 'border-b-0' : 'border-b bg-neutral-100 dark:bg-gray-900'
         }`}
       />
     </>

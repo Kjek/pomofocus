@@ -25,7 +25,10 @@
       "@atom/*": ["components/atoms/*"],
       "@molecule/*": ["components/molecules/*"],
       "@organism/*": ["components/organisms/*"],
+      "@data/*": ["data/*"],
       "@hook/*": ["hooks/*"],
+      "@page/*": ["pages/*"],
+      "@type/*": ["types/*"],
       "@util/*": ["utils/*"]
     }
   },

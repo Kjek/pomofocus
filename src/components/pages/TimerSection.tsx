@@ -1,15 +1,22 @@
 import Text from '@atom/Text';
 import usePomodoroInterval from '@hook/usePomodoroInterval';
 import useTimer, { TimerStatus } from '@hook/useTimer';
+import SettingsModal from '@organism/SettingsModal';
 import NextButton from '@molecule/NextButton';
 import PlayPauseResumeButton from '@molecule/PlayPauseResumeButton';
 import TimerSelectionSection from '@molecule/TimerSelectionSection';
 import minutesToMiliseconds from '@util/minutesToMiliseconds';
 import { useCallback, useEffect } from 'react';
+import { useLocalStorage } from 'usehooks-ts';
+import useToggle from '@hook/useToggle';
 
 const TimerSection = () => {
   const { toggleTimer, formatedTime, status, setTimer, time } = useTimer();
+  const [isSettingsOpen, toggleSettingsOpen] = useToggle();
   const { state, dispatch } = usePomodoroInterval();
+  const [pomodoroTime] = useLocalStorage('pomodoro.time', '25');
+  const [shortBreakTime] = useLocalStorage('short.break.time', '5');
+  const [longBreakTime] = useLocalStorage('long.break.time', '15');
 
   const handleInterval = useCallback(() => {
     if (state.intervalType !== 'focus') {
@@ -32,20 +39,20 @@ const TimerSection = () => {
   useEffect(() => {
     switch (state.intervalType) {
       case 'short break':
-        setTimer(minutesToMiliseconds(5));
+        setTimer(minutesToMiliseconds(Number(shortBreakTime)));
         break;
       case 'long break':
-        setTimer(minutesToMiliseconds(15));
+        setTimer(minutesToMiliseconds(Number(longBreakTime)));
         break;
       case 'focus':
       default:
-        setTimer(minutesToMiliseconds(25));
+        setTimer(minutesToMiliseconds(Number(pomodoroTime)));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]);
+  }, [state, isSettingsOpen]);
 
   return (
-    <div className='dark:bg-gray-custom m-auto flex w-fit flex-col gap-2 rounded-lg border border-gray-300 bg-white pb-4 sm:pb-6 dark:border-gray-600'>
+    <div className='dark:bg-gray-custom m-auto flex w-fit flex-col gap-2 rounded-lg border border-gray-300 bg-white dark:border-gray-600'>
       <TimerSelectionSection state={state} dispatch={dispatch} />
       <Text variant='h1' className='text-center'>
         {formatedTime}
@@ -55,6 +62,7 @@ const TimerSection = () => {
         <PlayPauseResumeButton status={status} onClick={toggleTimer} />
         <NextButton onClick={handleInterval} />
       </div>
+      <SettingsModal isOpen={isSettingsOpen} toggleOpen={toggleSettingsOpen} />
     </div>
   );
 };
