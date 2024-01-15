@@ -14,14 +14,15 @@ const TimerSection = () => {
   const { toggleTimer, formatedTime, status, setTimer, time } = useTimer();
   const [isSettingsOpen, toggleSettingsOpen] = useToggle();
   const { state, dispatch } = usePomodoroInterval();
-  const [pomodoroTime] = useLocalStorage('pomodoro.time', '25');
-  const [shortBreakTime] = useLocalStorage('short.break.time', '5');
-  const [longBreakTime] = useLocalStorage('long.break.time', '15');
+  const [pomodoroTime] = useLocalStorage('pomodoro.time', 25);
+  const [shortBreakTime] = useLocalStorage('short.break.time', 5);
+  const [longBreakTime] = useLocalStorage('long.break.time', 15);
+  const [longBreakInterval] = useLocalStorage('long.break.interval', 4);
 
   const handleInterval = useCallback(() => {
     if (state.intervalType !== 'focus') {
       dispatch({ type: 'focus', payload: state.intervalCount + 1 });
-    } else if (state.intervalCount % 4 === 0) {
+    } else if (state.intervalCount % longBreakInterval === 0) {
       dispatch({ type: 'long break' });
     } else {
       dispatch({ type: 'short break' });
@@ -39,14 +40,14 @@ const TimerSection = () => {
   useEffect(() => {
     switch (state.intervalType) {
       case 'short break':
-        setTimer(minutesToMiliseconds(Number(shortBreakTime)));
+        setTimer(minutesToMiliseconds(shortBreakTime));
         break;
       case 'long break':
-        setTimer(minutesToMiliseconds(Number(longBreakTime)));
+        setTimer(minutesToMiliseconds(longBreakTime));
         break;
       case 'focus':
       default:
-        setTimer(minutesToMiliseconds(Number(pomodoroTime)));
+        setTimer(minutesToMiliseconds(pomodoroTime));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, isSettingsOpen]);
